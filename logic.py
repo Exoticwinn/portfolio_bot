@@ -34,6 +34,9 @@ class DB_Manager:
                             status_id INTEGER PRIMARY KEY,
                             status_name TEXT
                         )''')
+            project_columns = [row[1] for row in conn.execute('PRAGMA table_info(projects)')]
+            if 'photo' not in project_columns:
+                conn.execute('ALTER TABLE projects ADD COLUMN photo TEXT')
             conn.commit()
 
     def __executemany(self, sql, data):
@@ -60,8 +63,8 @@ class DB_Manager:
 
     def insert_project(self, data):
         sql = '''INSERT INTO projects
-        (user_id, project_name, url, status_id)
-        VALUES (?, ?, ?, ?)'''
+        (user_id, project_name, url, status_id, photo)
+        VALUES (?, ?, ?, ?, ?)'''
         self.__executemany(sql, data)
 
 
@@ -153,6 +156,7 @@ PROJECTS = [
         "project_name": "PokeFinderBot",
         "description": "Бот создаёт случайного покемона через API, отправляет имя и картинку и сохраняет прогресс пользователя.",
         "url": "https://github.com/Exoticwinn/PokeFinderBot",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/PokeFinderBot",
         "status": "Разработан",
         "skills": ["Python", "API", "Telegram"]
     },
@@ -160,6 +164,7 @@ PROJECTS = [
         "project_name": "GAMERProfile",
         "description": "Демонстрация класса игрока с именем, возрастом, ником и email.",
         "url": "https://github.com/Exoticwinn/GAMERProfile",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/GAMERProfile",
         "status": "Разработан",
         "skills": ["Python"]
     },
@@ -167,6 +172,7 @@ PROJECTS = [
         "project_name": "Helper1",
         "description": "Telegram-бот-помощник с базовой логикой команд и автоматизацией задач.",
         "url": "https://github.com/Exoticwinn/Helper1",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/Helper1",
         "status": "Разработан",
         "skills": ["Python", "Telegram", "API"]
     },
@@ -174,6 +180,7 @@ PROJECTS = [
         "project_name": "Telegram-Image-Bot",
         "description": "Telegram-бот с машинным обучением, классификацией изображений, мини-играми и генераторами.",
         "url": "https://github.com/Exoticwinn/Telegram-Image-Bot",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/Telegram-Image-Bot",
         "status": "Обновлен",
         "skills": ["Python", "Telegram", "AI", "API"]
     },
@@ -181,6 +188,7 @@ PROJECTS = [
         "project_name": "TestBot",
         "description": "Проект для обучения работе с GitHub и выгрузкой файлов в удалённый репозиторий.",
         "url": "https://github.com/Exoticwinn/TestBot",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/TestBot",
         "status": "Завершен/Не поддерживается",
         "skills": ["Python", "Telegram"]
     },
@@ -188,6 +196,7 @@ PROJECTS = [
         "project_name": "FluxorianBot",
         "description": "Простой Telegram-бот для личного использования.",
         "url": "https://github.com/Exoticwinn/FluxorianBot",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/FluxorianBot",
         "status": "Разработан",
         "skills": ["Python", "Telegram"]
     },
@@ -195,6 +204,7 @@ PROJECTS = [
         "project_name": "Fortnite-Shop-Bot",
         "description": "Telegram-бот, который показывает магазин Fortnite и случайный предмет.",
         "url": "https://github.com/Exoticwinn/Fortnite-Shop-Bot",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/Fortnite-Shop-Bot",
         "status": "Разработан",
         "skills": ["Python", "Telegram", "API"]
     },
@@ -202,6 +212,7 @@ PROJECTS = [
         "project_name": "portfolio-main",
         "description": "Персональный сайт-портфолио на Flask с проектами, GitHub интеграцией и формой обратной связи.",
         "url": "https://github.com/Exoticwinn/portfolio-main",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/portfolio-main",
         "status": "Разработан",
         "skills": ["Python", "HTML", "CSS", "FLASK"]
     },
@@ -209,6 +220,7 @@ PROJECTS = [
         "project_name": "calculator-main",
         "description": "Калькулятор для оценки энергозатрат и качества энергопотребления в доме.",
         "url": "https://github.com/Exoticwinn/calculator-main",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/calculator-main",
         "status": "Разработан",
         "skills": ["Python", "HTML", "CSS", "FLASK"]
     },
@@ -216,6 +228,7 @@ PROJECTS = [
         "project_name": "VENV",
         "description": "Небольшой веб-сайт с несколькими разделами и базовой структурой страниц.",
         "url": "https://github.com/Exoticwinn/VENV",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/VENV",
         "status": "Завершен/Не поддерживается",
         "skills": ["Python", "HTML", "CSS"]
     },
@@ -223,6 +236,7 @@ PROJECTS = [
         "project_name": "new-htms_css",
         "description": "Небольшой проект на HTML и CSS.",
         "url": "https://github.com/Exoticwinn/new-htms_css",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/new-htms_css",
         "status": "Завершен/Не поддерживается",
         "skills": ["HTML", "CSS"]
     },
@@ -230,6 +244,7 @@ PROJECTS = [
         "project_name": "QuickPassword",
         "description": "Консольный генератор паролей на Python с рандомной генерацией комбинаций символов.",
         "url": "https://github.com/Exoticwinn/QuickPassword",
+        "photo": "https://opengraph.githubassets.com/1/Exoticwinn/QuickPassword",
         "status": "Разработан",
         "skills": ["Python"]
     }
@@ -245,7 +260,7 @@ if __name__ == '__main__':
         for project in PROJECTS:
             status_id = manager.get_status_id(project['status'])
             manager.insert_project([
-                (1, project['project_name'], project['url'], status_id)
+                (1, project['project_name'], project['url'], status_id, project['photo'])
             ])
 
             for skill in project['skills']:
@@ -257,6 +272,9 @@ if __name__ == '__main__':
             status_id = manager.get_status_id(project['status'])
             manager.update_projects(
                 'status_id', (status_id, project['project_name'], 1)
+            )
+            manager.update_projects(
+                'photo', (project['photo'], project['project_name'], 1)
             )
 
     print('Статусы:', manager.get_statuses())
