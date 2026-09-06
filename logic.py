@@ -230,7 +230,7 @@ PROJECTS = [
         "project_name": "Telegram-Image-Bot",
         "description": "Telegram-бот с машинным обучением, классификацией изображений, мини-играми и генераторами.",
         "url": "https://github.com/Exoticwinn/Telegram-Image-Bot",
-        "status": "Обновлен",
+        "status": "Разработан",
         "skills": ["Python", "Telegram", "AI", "API"]
     },
     {
