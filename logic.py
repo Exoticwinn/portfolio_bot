@@ -288,6 +288,13 @@ PROJECTS = [
         "url": "https://github.com/Exoticwinn/QuickPassword",
         "status": "Разработан",
         "skills": ["Python"]
+    },
+    {
+        "project_name": "portfolio_bot",
+        "description": "Telegram-бот для хранения и управления проектами разработчика в SQLite.",
+        "url": "https://github.com/Exoticwinn/portfolio_bot",
+        "status": "Завершен/Не поддерживается",
+        "skills": ["Python", "SQL", "Telegram"]
     }
 ]
 
@@ -309,11 +316,22 @@ if __name__ == '__main__':
                 if any(skill_name == skill for _, skill_name in skill_rows):
                     manager.insert_skill(1, project['project_name'], skill)
     else:
+        existing_projects = {project_row[2] for project_row in manager.get_projects(1)}
         for project in PROJECTS:
             status_id = manager.get_status_id(project['status'])
-            manager.update_projects(
-                'status_id', (status_id, project['project_name'], 1)
-            )
+            if project['project_name'] in existing_projects:
+                manager.update_projects(
+                    'status_id', (status_id, project['project_name'], 1)
+                )
+                continue
+
+            manager.insert_project([
+                (1, project['project_name'], project['description'], project['url'], status_id)
+            ])
+            for skill in project['skills']:
+                skill_rows = manager.get_skills()
+                if any(skill_name == skill for _, skill_name in skill_rows):
+                    manager.insert_skill(1, project['project_name'], skill)
 
     print('Статусы:', manager.get_statuses())
     print('Проекты:', manager.get_projects(1))
