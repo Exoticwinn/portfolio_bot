@@ -56,9 +56,4 @@ python main.py
 ## Для разработчиков
 
 - `main.py` содержит Telegram-хэндлеры, клавиатуры и пользовательские сообщения;
-- `logic.py` изолирует SQL-операции в классе `DB_Manager`;
-- `DB_Manager.insert_status()` и `update_status()` управляют справочником статусов;
-- `DB_Manager.insert_skill_type()` и `update_skill_type()` управляют справочником навыков;
-- `DB_Manager.update_project_status()` и `update_project_skill()` изменяют данные конкретного проекта;
-- перед публикацией замените токен, если он когда-либо попадал в открытый репозиторий;
-- синтаксис Python можно проверить командой `python -m py_compile main.py logic.py config.py`.
+- `logic.py` изолирует SQL-операции в классе `DB_Manager`.
